@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1730">
+<title>Master Mansion | Digital Mess Management</title>
+<style>
+:root{--navy:#0b1730;--navy2:#132746;--gold:#d6b46a;--gold2:#f0d99e;--ink:#172033;--muted:#667085;--paper:#f5f7fb;--line:#e5e9f0;--white:#fff;--green:#16794b;--red:#b54747}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
+header{background:linear-gradient(120deg,var(--navy),#172d50);color:white;padding:22px max(18px,calc((100% - 1120px)/2));border-bottom:3px solid var(--gold)}
+.brand{display:flex;align-items:center;gap:13px}.logo{width:48px;height:48px;border:1px solid var(--gold);border-radius:13px;display:grid;place-items:center;color:var(--gold);font-family:Georgia,serif;font-size:27px;font-weight:bold}.brand h1{font-size:20px;letter-spacing:1.5px;margin:0}.brand p{margin:3px 0 0;color:var(--gold2);font-size:11px;letter-spacing:1.4px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}.navbtn{border:1px solid #52627c;background:transparent;color:#e8edf5;border-radius:9px;padding:9px 13px;cursor:pointer;font-size:13px}.navbtn.active,.navbtn:hover{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:700}
+main{max-width:1120px;margin:25px auto;padding:0 18px 55px}.hero{background:linear-gradient(120deg,#10213d,#1d365b);color:white;border-radius:18px;padding:30px;position:relative;overflow:hidden}.hero:after{content:"M";position:absolute;right:25px;top:-45px;font:220px Georgia;color:#ffffff0b}.eyebrow{color:var(--gold2);font-size:12px;letter-spacing:2px}.hero h2{font-size:clamp(25px,4vw,39px);margin:10px 0}.hero p{color:#d6deeb;max-width:650px;line-height:1.8;margin:0}.hero .address{margin-top:17px;color:var(--gold2);font-size:13px}
+.section{display:none}.section.active{display:block}.section-title{margin:26px 0 15px}.section-title h2{margin:0;color:var(--navy);font-size:23px}.section-title p{margin:5px 0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:17px;box-shadow:0 3px 12px #14213b08}.stat small{color:var(--muted)}.stat strong{display:block;font-size:25px;color:var(--navy);margin-top:7px}.stat span{font-size:11px;color:var(--muted)}
+.two{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.card h3{margin:0 0 13px;color:var(--navy);font-size:16px}.muted{color:var(--muted);font-size:13px;line-height:1.7}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.btn{border:0;background:var(--navy);color:white;padding:10px 14px;border-radius:9px;cursor:pointer;font-weight:600}.btn.gold{background:var(--gold);color:var(--navy)}.btn.light{background:#edf1f7;color:var(--navy)}.btn.danger{background:#fff0f0;color:var(--red)}input,select,textarea{width:100%;padding:10px 11px;border:1px solid #d8deea;border-radius:9px;background:white;font:inherit;font-size:14px;color:var(--ink)}label{display:block;font-size:12px;color:#475467;margin:10px 0 5px}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.formgrid .full{grid-column:1/-1}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line)}th{color:#667085;background:#f8f9fc;font-weight:700}td{color:#344054}.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+.pill{display:inline-block;border-radius:99px;padding:4px 9px;font-size:11px;background:#e9f6ef;color:var(--green)}.pill.off{background:#fff1e8;color:#a34d19}
+.notice{padding:12px 0;border-bottom:1px solid var(--line)}.notice:last-child{border:0}.notice b{color:var(--navy)}.notice small{display:block;color:var(--muted);margin-top:4px}
+footer{text-align:center;padding:22px;color:#667085;font-size:12px;border-top:1px solid var(--line);background:white}footer b{color:var(--navy)}
+.callout{border:1px solid #ead9ae;background:#fffaf0;padding:13px;border-radius:10px;color:#72551b;font-size:12px;line-height:1.7;margin-top:14px}
+.empty{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}}
+@media(max-width:480px){header{padding:17px}.brand h1{font-size:17px}.navbtn{font-size:12px;padding:8px 10px}.hero{padding:23px}.grid{gap:9px}.card{padding:13px}.formgrid{grid-template-columns:1fr}.formgrid .full{grid-column:auto}main{padding-left:12px;padding-right:12px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">M</div><div><h1>MASTER MANSION</h1><p>RESIDENCE · COMMUNITY · CARE</p></div></div>
+ <nav>
+  <button class="navbtn active" data-tab="home">হোম</button>
+  <button class="navbtn" data-tab="members">সদস্য</button>
+  <button class="navbtn" data-tab="meals">মিল ব্যবস্থাপনা</button>
+  <button class="navbtn" data-tab="accounts">হিসাব</button>
+  <button class="navbtn" data-tab="notices">নোটিশ</button>
+  <button class="navbtn" data-tab="admin">ম্যানেজার</button>
+ </nav>
+</header>
+<main>
+<section id="home" class="section active">
+ <div class="hero"><div class="eyebrow">WELCOME TO MASTER MANSION</div><h2>একসাথে থাকা,<br><span style="color:var(--gold2)">সুশৃঙ্খলভাবে এগিয়ে চলা।</span></h2><p>মাস্টার ম্যানশন—আবাসন, পারস্পরিক সহযোগিতা এবং সুশৃঙ্খল মেস ব্যবস্থাপনার একটি সম্মিলিত ঠিকানা।</p><div class="address">⌖ ফকিরপাড়া, দিনাজপুর সদর, দিনাজপুর</div></div>
+ <div class="section-title"><h2>ম্যানশন ড্যাশবোর্ড</h2><p>মেসের দৈনন্দিন ব্যবস্থাপনার এক নজরের চিত্র</p></div>
+ <div class="grid">
+  <div class="card stat"><small>মোট সদস্য</small><strong id="homeMembers">০</strong><span>নিবন্ধিত সদস্য</span></div>
+  <div class="card stat"><small>আজকের মিল</small><strong id="homeMeals">০</strong><span>চালু মিল</span></div>
+  <div class="card stat"><small>মোট বাজার খরচ</small><strong id="homeExpense">৳০</strong><span>এই ডেমোতে যোগ করা খরচ</span></div>
+  <div class="card stat"><small>নোটিশ</small><strong id="homeNotices">০</strong><span>প্রকাশিত ঘোষণা</span></div>
+ </div>
+ <div class="two" style="margin-top:14px">
+  <div class="card"><h3>আমাদের সম্পর্কে</h3><p class="muted">Master Mansion-এর লক্ষ্য হলো পরিচ্ছন্ন, সহযোগিতাপূর্ণ ও নিয়মতান্ত্রিক আবাসিক পরিবেশ বজায় রাখা। সদস্যদের সুবিধা, মিল ব্যবস্থাপনা, বাজার এবং হিসাবের স্বচ্ছতা—সবকিছু এক জায়গায় সাজানোই এই উদ্যোগের উদ্দেশ্য।</p></div>
+  <div class="card"><h3>সুবিধাসমূহ</h3><p class="muted">• সম্মিলিত আবাসন ব্যবস্থাপনা<br>• দৈনিক মিলের হিসাব<br>• বাজার ও খরচের রেকর্ড<br>• নোটিশ ও গুরুত্বপূর্ণ ঘোষণা<br>• সদস্যভিত্তিক হিসাবের কাঠামো</p></div>
+ </div>
+ <div class="callout"><b>গুরুত্বপূর্ণ:</b> এটি বর্তমানে পরীক্ষামূলক ডেমো। এখানে যোগ করা তথ্য এই ব্রাউজারের মধ্যেই থাকে; সবার ডিভাইসে একসঙ্গে দেখা যায় না। বাস্তব ব্যবহারের আগে নিরাপদ লগইন, সার্ভার ও ডেটাবেস সংযুক্ত করতে হবে।</div>
+</section>
+
+<section id="members" class="section">
+ <div class="section-title"><h2>সদস্য ব্যবস্থাপনা</h2><p>ডেমো সদস্য যোগ ও তালিকা</p></div>
+ <div class="card">
+  <div class="formgrid"><div><label>সদস্যের নাম</label><input id="memberName" placeholder="নাম লিখুন"></div><div><label>রুম / ফ্লোর</label><input id="memberRoom" placeholder="যেমন: ২য় তলা, রুম ৩"></div><div class="full"><button class="btn gold" onclick="addMember()">+ সদস্য যোগ করুন</button></div></div>
+ </div>
+ <div class="card" style="margin-top:14px"><h3>সদস্য তালিকা</h3><div class="tablewrap"><table><thead><tr><th>নাম</th><th>রুম / ফ্লোর</th><th>অ্যাকশন</th></tr></thead><tbody id="memberRows"></tbody></table></div></div>
+</section>
+
+<section id="meals" class="section">
+ <div class="section-title"><h2>দৈনিক মিল ব্যবস্থাপনা</h2><p>সদস্যদের মিল অন/অফের ডেমো হিসাব</p></div>
+ <div class="card"><h3>আজকের মিল</h3><p class="muted">প্রতিটি সদস্যের দুপুর ও রাতের মিল চালু বা বন্ধ করুন।</p><div class="tablewrap"><table><thead><tr><th>সদস্য</th><th>দুপুর</th><th>রাত</th></tr></thead><tbody id="mealRows"></tbody></table></div><div class="actions"><button class="btn gold" onclick="saveMeals()">মিল আপডেট সংরক্ষণ</button></div></div>
+ <div class="callout">বাস্তব ব্যবস্থায় প্রতিদিনের তারিখভিত্তিক মিল রেকর্ড, সময়সীমা এবং সদস্যের নিজস্ব লগইন যুক্ত করা প্রয়োজন।</div>
+</section>
+
+<section id="accounts" class="section">
+ <div class="section-title"><h2>বাজার ও হিসাব</h2><p>খরচ যোগ করুন এবং মোট হিসাব দেখুন</p></div>
+ <div class="grid">
+  <div class="card stat"><small>মোট বাজার খরচ</small><strong id="totalExpense">৳০</strong></div>
+  <div class="card stat"><small>মোট এন্ট্রি</small><strong id="expenseCount">০</strong></div>
+  <div class="card stat"><small>মিলের সংখ্যা</small><strong id="accountMeals">০</strong></div>
+  <div class="card stat"><small>প্রতি মিলের খরচ</small><strong id="perMeal">৳০</strong></div>
+ </div>
+ <div class="card" style="margin-top:14px"><h3>নতুন বাজার / খরচ যোগ করুন</h3><div class="formgrid"><div><label>খরচের বিবরণ</label><input id="expenseTitle" placeholder="যেমন: মাছ, চাল, সবজি"></div><div><label>টাকার পরিমাণ</label><input id="expenseAmount" type="number" min="0" placeholder="টাকা"></div><div class="full"><button class="btn gold" onclick="addExpense()">খরচ যোগ করুন</button></div></div></div>
+ <div class="card" style="margin-top:14px"><h3>খরচের তালিকা</h3><div class="tablewrap"><table><thead><tr><th>বিবরণ</th><th>টাকা</th><th>অ্যাকশন</th></tr></thead><tbody id="expenseRows"></tbody></table></div></div>
+</section>
+
+<section id="notices" class="section">
+ <div class="section-title"><h2>নোটিশ বোর্ড</h2><p>মেসের গুরুত্বপূর্ণ ঘোষণা ও আপডেট</p></div>
+ <div class="card"><h3>নতুন নোটিশ প্রকাশ</h3><label>নোটিশের শিরোনাম</label><input id="noticeTitle" placeholder="শিরোনাম লিখুন"><label>বিস্তারিত</label><textarea id="noticeBody" rows="3" placeholder="নোটিশের বিস্তারিত লিখুন"></textarea><div class="actions"><button class="btn gold" onclick="addNotice()">নোটিশ প্রকাশ করুন</button></div></div>
+ <div class="card" style="margin-top:14px"><h3>প্রকাশিত নোটিশ</h3><div id="noticeList"></div></div>
+</section>
+
+<section id="admin" class="section">
+ <div class="section-title"><h2>ম্যানেজার প্যানেল</h2><p>ডেমো নিয়ন্ত্রণ ও ডেটা ব্যবস্থাপনা</p></div>
+ <div class="card"><h3>ম্যানেজার টুলস</h3><p class="muted">এই সংস্করণে অ্যাডমিন প্যানেলটি কেবল UI ডেমো। এটি এখনো পাসওয়ার্ড-সুরক্ষিত নয়। অনলাইনে প্রকাশের আগে প্রকৃত অথেনটিকেশন ও ভূমিকা-ভিত্তিক অনুমতি যোগ করতে হবে।</p><div class="actions"><button class="btn light" onclick="exportData()">ডেটা JSON ডাউনলোড</button><button class="btn danger" onclick="resetData()">ডেমো ডেটা রিসেট</button></div></div>
+ <div class="callout"><b>প্রাইভেসি:</b> সদস্যদের ফোন নম্বর, ব্যক্তিগত তথ্য, জমা-বকেয়া বা বিস্তারিত আর্থিক হিসাব পাবলিক হোমপেজে দেখানো উচিত নয়। এসব তথ্য কেবল অনুমোদিত সদস্য ও ম্যানেজার লগইনের ভেতরে রাখা হবে।</div>
+</section>
+</main>
+<footer><b>MASTER MANSION</b><br>Fakirpara, Dinajpur Sadar · Residence & Mess Management<br><span style="color:#9aa3b2">A premium digital residence experience</span></footer>
+<script>
+const KEY='masterMansionDemoV1';
+const defaults={members:[],meals:{},expenses:[],notices:[]};
+let data;
+try{data={...defaults,...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){data={...defaults}}
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+function money(n){return '৳'+Number(n||0).toLocaleString('bn-BD')}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function addMember(){let name=document.getElementById('memberName').value.trim(),room=document.getElementById('memberRoom').value.trim();if(!name){alert('সদস্যের নাম লিখুন');return}data.members.push({id:Date.now(),name,room});document.getElementById('memberName').value='';document.getElementById('memberRoom').value='';persist()}
+function removeMember(id){data.members=data.members.filter(m=>m.id!==id);delete data.meals[id];persist()}
+function saveMeals(){document.querySelectorAll('[data-meal]').forEach(el=>{let [id,meal]=el.dataset.meal.split(':');data.meals[id]=data.meals[id]||{lunch:true,dinner:true};data.meals[id][meal]=el.checked});persist();alert('ডেমো মিলের তথ্য সংরক্ষিত হয়েছে।')}
+function addExpense(){let title=document.getElementById('expenseTitle').value.trim(),amount=Number(document.getElementById('expenseAmount').value);if(!title||!amount||amount<0){alert('বিবরণ ও সঠিক টাকার পরিমাণ দিন');return}data.expenses.push({id:Date.now(),title,amount});document.getElementById('expenseTitle').value='';document.getElementById('expenseAmount').value='';persist()}
+function removeExpense(id){data.expenses=data.expenses.filter(x=>x.id!==id);persist()}
+function addNotice(){let title=document.getElementById('noticeTitle').value.trim(),body=document.getElementById('noticeBody').value.trim();if(!title||!body){alert('শিরোনাম ও বিস্তারিত লিখুন');return}data.notices.unshift({id:Date.now(),title,body,date:new Date().toLocaleDateString('bn-BD')});document.getElementById('noticeTitle').value='';document.getElementById('noticeBody').value='';persist()}
+function removeNotice(id){data.notices=data.notices.filter(x=>x.id!==id);persist()}
+function render(){
+ const total=data.expenses.reduce((s,x)=>s+Number(x.amount),0);
+ const active=Object.values(data.meals).reduce((s,m)=>s+(m.lunch?1:0)+(m.dinner?1:0),0);
+ const mealCount=active||0;
+ document.getElementById('homeMembers').textContent=data.members.length.toLocaleString('bn-BD');
+ document.getElementById('homeMeals').textContent=mealCount.toLocaleString('bn-BD');
+ document.getElementById('homeExpense').textContent=money(total);
+ document.getElementById('homeNotices').textContent=data.notices.length.toLocaleString('bn-BD');
+ document.getElementById('totalExpense').textContent=money(total);
+ document.getElementById('expenseCount').textContent=data.expenses.length.toLocaleString('bn-BD');
+ document.getElementById('accountMeals').textContent=mealCount.toLocaleString('bn-BD');
+ document.getElementById('perMeal').textContent=mealCount?money(Math.round(total/mealCount)):money(0);
+ document.getElementById('memberRows').innerHTML=data.members.length?data.members.map(m=>`<tr><td>${esc(m.name)}</td><td>${esc(m.room||'—')}</td><td><button class="btn danger" onclick="removeMember(${m.id})">মুছুন</button></td></tr>`).join(''):'<tr><td colspan="3" class="empty">এখনো কোনো সদস্য যোগ করা হয়নি</td></tr>';
+ document.getElementById('mealRows').innerHTML=data.members.length?data.members.map(m=>{let v=data.meals[m.id]||{lunch:true,dinner:true};return `<tr><td>${esc(m.name)}</td><td><label style="margin:0"><input data-meal="${m.id}:lunch" type="checkbox" ${v.lunch?'checked':''} style="width:auto"> চালু</label></td><td><label style="margin:0"><input data-meal="${m.id}:dinner" type="checkbox" ${v.dinner?'checked':''} style="width:auto"> চালু</label></td></tr>`}).join(''):'<tr><td colspan="3" class="empty">মিল সেট করতে আগে সদস্য যোগ করুন</td></tr>';
+ document.getElementById('expenseRows').innerHTML=data.expenses.length?data.expenses.map(x=>`<tr><td>${esc(x.title)}</td><td>${money(x.amount)}</td><td><button class="btn danger" onclick="removeExpense(${x.id})">মুছুন</button></td></tr>`).join(''):'<tr><td colspan="3" class="empty">এখনো কোনো খরচ যোগ করা হয়নি</td></tr>';
+ document.getElementById('noticeList').innerHTML=data.notices.length?data.notices.map(n=>`<div class="notice"><b>${esc(n.title)}</b><small>${esc(n.date)}</small><p class="muted">${esc(n.body)}</p><button class="btn danger" onclick="removeNotice(${n.id})">মুছুন</button></div>`).join(''):'<div class="empty">এখনো কোনো নোটিশ প্রকাশ করা হয়নি</div>';
+}
+function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='master-mansion-demo-data.json';a.click();URL.revokeObjectURL(a.href)}
+function resetData(){if(confirm('সব ডেমো তথ্য মুছে ফেলতে চান?')){data={...defaults};persist()}}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.tab).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}));
+render();
+</script>
+</body></html>
